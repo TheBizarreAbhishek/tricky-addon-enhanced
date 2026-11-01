@@ -273,3 +273,56 @@ impl DaemonTask for SecurityPatchTask {
     }
 }
 
+// --- PifTask ---
+
+pub struct PifTask {
+    boot_done: bool,
+}
+
+impl PifTask {
+    pub fn new() -> Self {
+        Self { boot_done: false }
+    }
+}
+
+impl DaemonTask for PifTask {
+    fn name(&self) -> &'static str { "pif" }
+    fn is_enabled(&self, config: &Config) -> bool { config.pif.auto_update }
+    fn interval_secs(&self, config: &Config) -> u32 { config.pif.interval }
+
+    fn run(&mut self, config: &Config, _manager: Option<&str>) -> Result<(), TaskBackoff> {
+        if !self.boot_done {
+            if wait_for_network(7) {
+                for attempt in 1..=config.pif.boot_retries {
+                    match crate::pif::fetch_and_apply(config) {
+                        Ok(p) => {
+                            tracing::info!("boot PIF auto-fetch ok (attempt {attempt}, model={})", p.model);
+                            self.boot_done = true;
+                            return Ok(());
+                        }
+                        Err(e) => {
+                            tracing::warn!("boot PIF attempt {attempt} failed: {e}");
+                            if attempt < config.pif.boot_retries {
+                                std::thread::sleep(std::time::Duration::from_secs(3));
+                            }
+                        }
+                    }
+                }
+            }
+            tracing::warn!("boot PIF fetch failed -- retry next interval");
+            self.boot_done = true;
+            return Ok(());
+        }
+
+        if is_screen_off() {
+            return Ok(());
+        }
+
+        if let Err(e) = crate::pif::fetch_and_apply(config) {
+            tracing::warn!("PIF auto-fetch failed: {e}");
+        }
+        Ok(())
+    }
+}
+
+

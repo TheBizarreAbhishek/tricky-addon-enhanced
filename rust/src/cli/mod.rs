@@ -68,6 +68,11 @@ pub enum Commands {
     },
     #[command(name = "daemon-status")]
     DaemonStatus,
+    #[command(name = "pif", alias = "play-integrity")]
+    Pif {
+        #[command(subcommand)]
+        action: PifAction,
+    },
 }
 
 #[derive(Subcommand)]
@@ -176,6 +181,17 @@ pub enum ModuleAction {
     #[command(name = "update-locales")]
     UpdateLocales,
     Download { url: String },
+}
+
+#[derive(Subcommand)]
+pub enum PifAction {
+    Fetch,
+    Show,
+    #[command(name = "set-custom")]
+    SetCustom { path: String },
+    Apply,
+    #[command(name = "kill-gms")]
+    KillGms,
 }
 
 pub fn dispatch(command: Commands, cfg: &crate::config::Config) -> anyhow::Result<()> {

@@ -13,3 +13,4 @@ pub mod status;
 pub mod vbhash;
 pub mod module;
 pub mod daemon;
+pub mod pif;

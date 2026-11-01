@@ -225,7 +225,7 @@ pub fn handle_webui_init(cfg: &Config) -> anyhow::Result<()> {
             name: read_module_prop("name").unwrap_or_else(|| "Tricky Addon Enhanced".into()),
             version: read_module_prop("version").unwrap_or_else(|| format!("v{VERSION}")),
             version_code: read_module_prop("versionCode").and_then(|v| v.parse().ok()).unwrap_or(0),
-            author: read_module_prop("author").unwrap_or_else(|| "KOWX712, Enginex0".into()),
+            author: read_module_prop("author").unwrap_or_else(|| "Abhishek Babu".into()),
         },
         config: cfg.clone(),
         status: StatusInfo {

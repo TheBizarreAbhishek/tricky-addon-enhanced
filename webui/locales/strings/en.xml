@@ -130,11 +130,13 @@
     <string name="menu_automation">Keybox Automation</string>
     <string name="automation_keybox_header">Keybox Auto-Fetch</string>
     <string name="automation_enable">Enable</string>
-    <string name="automation_src_primary">Primary source</string>
-    <string name="automation_src_mirror">KOWX712 mirror</string>
+    <string name="automation_src_primary">TAKR (kowx712.cc)</string>
+    <string name="automation_src_mirror">MeowDump (Integrity-Box)</string>
     <string name="automation_src_device">Device generated</string>
     <string name="automation_src_stock">Stock keybox</string>
-    <string name="automation_src_custom">Your keybox</string>
+    <string name="automation_src_custom">Custom URL</string>
+    <string name="automation_src_paste">Paste XML</string>
+    <string name="automation_src_file">Browse File</string>
     <string name="automation_interval_header">Fetch Interval</string>
     <string name="automation_interval_custom">Custom</string>
     <string name="automation_interval_set">Set</string>

@@ -38,5 +38,6 @@ pub fn dispatch(command: Commands, cfg: &Config) -> anyhow::Result<()> {
         Commands::Applist { action } => crate::cli::applist::handle_applist(action, cfg),
         Commands::Module { action } => crate::module::handle_module(action, cfg),
         Commands::DaemonStatus => crate::daemon::handle_daemon_status(),
+        Commands::Pif { action } => crate::pif::handle_pif(action, cfg),
     }
 }

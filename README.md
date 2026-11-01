@@ -3,11 +3,10 @@
   <p align="center"><b>Automated TrickyStore & TEESimulator Management</b></p>
   <p align="center">Flash once. Forget forever.</p>
   <p align="center">
-    <img src="https://img.shields.io/github/v/release/Enginex0/tricky-addon-enhanced?style=for-the-badge&color=orange" alt="Version">
-    <img src="https://img.shields.io/github/actions/workflow/status/Enginex0/tricky-addon-enhanced/build.yml?style=for-the-badge&label=build" alt="Build">
+    <img src="https://img.shields.io/github/v/release/TheBizarreAbhishek/tricky-addon-enhanced?style=for-the-badge&color=orange" alt="Version">
+    <img src="https://img.shields.io/github/actions/workflow/status/TheBizarreAbhishek/tricky-addon-enhanced/build.yml?style=for-the-badge&label=build" alt="Build">
     <img src="https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge" alt="License">
     <img src="https://img.shields.io/badge/Rust-native-B7410E?style=for-the-badge&logo=rust" alt="Rust">
-    <img src="https://img.shields.io/badge/Telegram-community-blue?style=for-the-badge&logo=telegram" alt="Telegram">
   </p>
   <p align="center">
     <img src="https://img.shields.io/badge/KernelSU-32234%2B-green?style=for-the-badge" alt="KernelSU">
@@ -136,7 +135,7 @@ A single native daemon manages all background tasks — if anything dies, it res
 
 ## 🚀 Installation
 
-1. Download the [latest release](https://github.com/Enginex0/tricky-addon-enhanced/releases/latest)
+1. Download the [latest release](https://github.com/TheBizarreAbhishek/tricky-addon-enhanced/releases/latest)
 2. Install via your root manager
 3. **No reboot required** on KSU and APatch (hot install). Magisk applies on the next boot.
 
@@ -153,12 +152,12 @@ The module captures VBHash, builds the exclude list, generates `target.txt`, fet
 Requires Rust toolchain and Android NDK.
 
 ```bash
-git clone https://github.com/Enginex0/tricky-addon-enhanced.git
+git clone https://github.com/TheBizarreAbhishek/tricky-addon-enhanced.git
 cd tricky-addon-enhanced
 bash package.sh --no-bump
 ```
 
-The ZIP lands in `release/`. CI also builds on every push — grab artifacts from the [Actions tab](https://github.com/Enginex0/tricky-addon-enhanced/actions/workflows/build.yml).
+The ZIP lands in `release/`. CI also builds on every push — grab artifacts from the [Actions tab](https://github.com/TheBizarreAbhishek/tricky-addon-enhanced/actions/workflows/build.yml).
 
 <details>
 <summary><b>Build options</b></summary>
@@ -271,6 +270,8 @@ $ ta-enhanced --connect
 
 ## 🙏 Credits
 
+- **[Enginex0](https://github.com/Enginex0)** — original Tricky Addon Enhanced developer and Rust rewrite
+- **[TheBizarreAbhishek / Abhishek Babu](https://github.com/TheBizarreAbhishek)** — current maintainer, Keybox modernization (TAKR/MeowDump), Play Integrity (PIF) Auto-Fetch
 - **[KOWX712](https://github.com/KOWX712)** — original Tricky Addon concept and WebUI foundation
 - **[JingMatrix](https://github.com/JingMatrix)** — TEESimulator
 - **[5ec1cff](https://github.com/5ec1cff/TrickyStore)** — TrickyStore attestation module

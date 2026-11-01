@@ -20,6 +20,7 @@ pub struct Config {
     pub conflict: ConflictConfig,
     pub props: PropsConfig,
     pub region: RegionConfig,
+    pub pif: PifConfig,
     pub logging: LoggingConfig,
     pub ui: UiConfig,
 }
@@ -52,7 +53,7 @@ impl Default for KeyboxConfig {
         Self {
             enabled: true,
             interval: 300,
-            source: "yurikey".into(),
+            source: "takr".into(),
             custom_url: String::new(),
             boot_retries: 10,
             retry_delay: 3,
@@ -76,6 +77,32 @@ impl Default for SecurityPatchConfig {
             interval: 86400,
             custom_date: String::new(),
             boot_retries: 10,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(default)]
+pub struct PifConfig {
+    pub auto_update: bool,
+    pub interval: u32,
+    pub source: String,
+    pub target_device: String,
+    pub custom_url: String,
+    pub boot_retries: u32,
+    pub kill_gms: bool,
+}
+
+impl Default for PifConfig {
+    fn default() -> Self {
+        Self {
+            auto_update: true,
+            interval: 86400,
+            source: "flashstation".into(),
+            target_device: "akita_beta".into(),
+            custom_url: String::new(),
+            boot_retries: 5,
+            kill_gms: true,
         }
     }
 }
@@ -262,6 +289,7 @@ const ALL_KEYS: &[&str] = &[
     "vbhash.enabled",
     "conflict.enabled", "conflict.auto_remove",
     "region.enabled", "region.hwc", "region.hwcountry", "region.mod_device", "region.hardware_sku",
+    "pif.auto_update", "pif.interval", "pif.source", "pif.target_device", "pif.custom_url", "pif.boot_retries", "pif.kill_gms",
     "logging.level", "logging.max_size_mb", "logging.max_files", "logging.log_dir",
     "ui.language",
 ];
@@ -350,6 +378,13 @@ impl Config {
             "region.hwcountry" => Some(self.region.hwcountry.clone()),
             "region.mod_device" => Some(self.region.mod_device.clone()),
             "region.hardware_sku" => Some(self.region.hardware_sku.clone()),
+            "pif.auto_update" => Some(self.pif.auto_update.to_string()),
+            "pif.interval" => Some(self.pif.interval.to_string()),
+            "pif.source" => Some(self.pif.source.clone()),
+            "pif.target_device" => Some(self.pif.target_device.clone()),
+            "pif.custom_url" => Some(self.pif.custom_url.clone()),
+            "pif.boot_retries" => Some(self.pif.boot_retries.to_string()),
+            "pif.kill_gms" => Some(self.pif.kill_gms.to_string()),
             "logging.level" => Some(self.logging.level.clone()),
             "logging.max_size_mb" => Some(self.logging.max_size_mb.to_string()),
             "logging.max_files" => Some(self.logging.max_files.to_string()),
@@ -398,6 +433,13 @@ impl Config {
             "region.hwcountry" => self.region.hwcountry = value.to_string(),
             "region.mod_device" => self.region.mod_device = value.to_string(),
             "region.hardware_sku" => self.region.hardware_sku = value.to_string(),
+            "pif.auto_update" => self.pif.auto_update = parse_bool(value)?,
+            "pif.interval" => self.pif.interval = value.parse()?,
+            "pif.source" => self.pif.source = value.to_string(),
+            "pif.target_device" => self.pif.target_device = value.to_string(),
+            "pif.custom_url" => self.pif.custom_url = value.to_string(),
+            "pif.boot_retries" => self.pif.boot_retries = value.parse()?,
+            "pif.kill_gms" => self.pif.kill_gms = parse_bool(value)?,
             "logging.level" => self.logging.level = value.to_string(),
             "logging.max_size_mb" => self.logging.max_size_mb = value.parse()?,
             "logging.max_files" => self.logging.max_files = value.parse()?,
@@ -443,10 +485,13 @@ impl Config {
         self.logging.max_files = self.logging.max_files.clamp(1, 10);
 
         match self.keybox.source.as_str() {
-            "yurikey" | "upstream" | "custom" => {}
+            "takr" | "meow" | "custom" => {}
+            "yurikey" | "upstream" => {
+                self.keybox.source = "takr".into();
+            }
             other => {
-                warnings.push(format!("keybox.source: legacy value '{}' migrated to 'yurikey'", other));
-                self.keybox.source = "yurikey".into();
+                warnings.push(format!("keybox.source: legacy value '{}' migrated to 'takr'", other));
+                self.keybox.source = "takr".into();
             }
         }
         match self.logging.level.as_str() {

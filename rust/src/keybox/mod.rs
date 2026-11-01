@@ -21,16 +21,16 @@ const BACKUP_KEYBOX: &str = "/data/adb/tricky_store/keybox.xml.bak";
 #[serde(rename_all = "lowercase")]
 pub enum KeyboxSource {
     #[default]
-    Yurikey,
-    Upstream,
+    Takr,
+    Meow,
     Custom,
 }
 
 impl fmt::Display for KeyboxSource {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Yurikey => write!(f, "yurikey"),
-            Self::Upstream => write!(f, "upstream"),
+            Self::Takr => write!(f, "takr"),
+            Self::Meow => write!(f, "meow"),
             Self::Custom => write!(f, "custom"),
         }
     }
@@ -40,8 +40,8 @@ impl FromStr for KeyboxSource {
     type Err = anyhow::Error;
     fn from_str(s: &str) -> Result<Self> {
         match s.to_ascii_lowercase().as_str() {
-            "yurikey" => Ok(Self::Yurikey),
-            "upstream" => Ok(Self::Upstream),
+            "takr" | "yurikey" | "upstream" => Ok(Self::Takr),
+            "meow" | "megatron" => Ok(Self::Meow),
             "custom" => Ok(Self::Custom),
             _ => bail!("unknown keybox source: {s}"),
         }
@@ -105,7 +105,7 @@ pub fn handle_keybox(action: KeyboxAction, cfg: &Config) -> Result<()> {
 
 pub fn fetch(config: &Config) -> Result<FetchResult> {
     let preferred = KeyboxSource::from_str(&config.keybox.source).unwrap_or_else(|e| {
-        warn!("keybox source {:?} invalid ({e}); defaulting to yurikey", config.keybox.source);
+        warn!("keybox source {:?} invalid ({e}); defaulting to takr", config.keybox.source);
         KeyboxSource::default()
     });
     let custom_url = &config.keybox.custom_url;
@@ -115,8 +115,8 @@ pub fn fetch(config: &Config) -> Result<FetchResult> {
 
     for source in &order {
         let result = match source {
-            KeyboxSource::Yurikey => sources::fetch_yurikey(),
-            KeyboxSource::Upstream => sources::fetch_upstream(),
+            KeyboxSource::Takr => sources::fetch_takr(),
+            KeyboxSource::Meow => sources::fetch_meow(),
             KeyboxSource::Custom => {
                 if custom_url.is_empty() {
                     continue;
@@ -219,20 +219,20 @@ pub fn set_custom(path: &Path) -> Result<()> {
 
 pub fn get_sources(config: &Config) -> Vec<SourceInfo> {
     let active = KeyboxSource::from_str(&config.keybox.source).unwrap_or_else(|e| {
-        warn!("keybox source {:?} invalid ({e}); defaulting to yurikey", config.keybox.source);
+        warn!("keybox source {:?} invalid ({e}); defaulting to takr", config.keybox.source);
         KeyboxSource::default()
     });
     vec![
-        SourceInfo { name: "yurikey".into(), active: active == KeyboxSource::Yurikey },
-        SourceInfo { name: "upstream".into(), active: active == KeyboxSource::Upstream },
+        SourceInfo { name: "takr".into(), active: active == KeyboxSource::Takr },
+        SourceInfo { name: "meow".into(), active: active == KeyboxSource::Meow },
         SourceInfo { name: "custom".into(), active: active == KeyboxSource::Custom },
     ]
 }
 
 fn build_source_order(preferred: KeyboxSource) -> Vec<KeyboxSource> {
     let all = [
-        KeyboxSource::Yurikey,
-        KeyboxSource::Upstream,
+        KeyboxSource::Takr,
+        KeyboxSource::Meow,
         KeyboxSource::Custom,
     ];
     let mut order = vec![preferred];
@@ -277,8 +277,8 @@ fn has_valid_existing_keybox() -> bool {
 
 fn source_label(s: &KeyboxSource) -> &'static str {
     match s {
-        KeyboxSource::Yurikey => "yurikey",
-        KeyboxSource::Upstream => "upstream",
+        KeyboxSource::Takr => "takr",
+        KeyboxSource::Meow => "meow",
         KeyboxSource::Custom => "custom",
     }
 }

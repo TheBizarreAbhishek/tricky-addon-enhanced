@@ -58,7 +58,7 @@
             </div>
             <div class="header-text">
                 <div id="title" data-i18n="header_title"></div>
-                <span class="header-subtitle">Enhanced by <span class="enhancer-name">Enginex0</span></span>
+                <span class="header-subtitle">Enhanced by <span class="enhancer-name">Abhishek Babu</span></span>
             </div>
         </div>
         <md-icon-button class="search-button search-bg" id="search-button">
@@ -247,14 +247,14 @@
                 <div id="module_name_line1" data-i18n="about_module_name_line1"></div>
                 <div id="module_name_line2" data-i18n="about_module_name_line2"></div>
                 <div id="module-version"></div>
-                <div id="author"><span id="authored" data-i18n="about_by"></span> <span class="enhancer-name">Enginex0</span></div>
+                <div id="author"><span id="authored" data-i18n="about_by"></span> <span class="enhancer-name">Abhishek Babu</span></div>
             </div>
             <div slot="content">
                 <div id="disclaimer" data-i18n="about_disclaimer"></div>
                 <div class="link">
-                    <md-filled-button id="telegram">
+                    <!-- Telegram button hidden per user request, stub preserved for JS compatibility -->
+                    <md-filled-button id="telegram" style="display: none !important;" aria-hidden="true">
                         <span data-i18n="about_telegram_channel"></span>
-                        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.114 9.291c.552-.552 1.1-1.84-1.2-.276a395.806 395.806 0 0 1-6.489 4.372 2.7 2.7 0 0 1-2.117.046c-1.38-.414-2.991-.966-2.991-.966s-1.1-.691.783-1.427c0 0 7.961-3.267 10.722-4.418 1.058-.46 4.647-1.932 4.647-1.932s1.657-.645 1.519.92c-.046.644-.414 2.9-.782 5.338-.553 3.451-1.151 7.225-1.151 7.225s-.092 1.058-.874 1.242a3.787 3.787 0 0 1-2.3-.828c-.184-.138-3.451-2.209-4.648-3.221a.872.872 0 0 1 .046-1.473 169.31 169.31 0 0 0 4.835-4.602Z"></path></svg>
                     </md-filled-button>
                     <md-filled-button id="github">
                         <span>GitHub</span>
@@ -263,6 +263,7 @@
                 </div>
                 <div class="acknowledgment">
                     <p id="acknowledgment" data-i18n="about_acknowledgment"></p>
+                    <p>Enginex0: Original Tricky Addon Enhanced developer</p>
                     <p>KOWX712: Original Tricky Addon</p>
                     <p>JingMatrix: TEESimulator</p>
                     <p>XtrLumen/TS-Enhancer-Extreme: VBHash concept</p>
@@ -383,46 +384,60 @@
                         </div>
                     </div>
                     <div class="source-grid" id="keybox-source-grid">
-                        <button class="source-card" data-value="yurikey">
-                            <div class="source-icon" style="--icon-color: #FFB347;">
-                                <md-icon>vpn_key</md-icon>
+                        <button class="source-card" data-value="takr" data-alias="yurikey">
+                            <div class="source-icon" style="--icon-color: #00D68F;">
+                                <md-icon>verified_user</md-icon>
                             </div>
-                            <div class="source-name">Yurikey</div>
-                            <div class="source-desc" data-i18n="automation_src_primary">Primary source</div>
+                            <div class="source-name">TAKR</div>
+                            <div class="source-desc" data-i18n="automation_src_primary">kowx712.cc (Mirror)</div>
                             <div class="source-check"><md-icon>check_circle</md-icon></div>
                         </button>
-                        <button class="source-card" data-value="upstream">
+                        <button class="source-card" data-value="meow" data-alias="upstream">
+                            <div class="source-icon" style="--icon-color: #FF9800;">
+                                <md-icon>cloud_download</md-icon>
+                            </div>
+                            <div class="source-name">MeowDump</div>
+                            <div class="source-desc" data-i18n="automation_src_mirror">Integrity-Box</div>
+                            <div class="source-check"><md-icon>check_circle</md-icon></div>
+                        </button>
+                        <button class="source-card" data-value="custom" id="custom-url-card">
                             <div class="source-icon" style="--icon-color: #4FC3F7;">
-                                <md-icon>cloud_sync</md-icon>
+                                <md-icon>link</md-icon>
                             </div>
-                            <div class="source-name">KOW</div>
-                            <div class="source-desc" data-i18n="automation_src_mirror">KOWX712 mirror</div>
+                            <div class="source-name">Custom URL</div>
+                            <div class="source-desc" data-i18n="automation_src_custom">Remote URL</div>
                             <div class="source-check"><md-icon>check_circle</md-icon></div>
                         </button>
-                        <button class="source-card" id="devicekb" data-value="unknown" data-action="true">
-                            <div class="source-icon" style="--icon-color: #E0E0E0;">
-                                <md-icon>help_outline</md-icon>
+                        <button class="source-card" id="paste-xml-btn" data-action="true">
+                            <div class="source-icon" style="--icon-color: #B388FF;">
+                                <md-icon>content_paste</md-icon>
                             </div>
-                            <div class="source-name">Unknown</div>
-                            <div class="source-desc" data-i18n="automation_src_device">Device generated</div>
+                            <div class="source-name">Paste XML</div>
+                            <div class="source-desc" data-i18n="automation_src_paste">Direct paste</div>
                             <div class="source-check"><md-icon>check_circle</md-icon></div>
                         </button>
-                        <button class="source-card" id="aospkb" data-value="aosp" data-action="true">
-                            <div class="source-icon" style="--icon-color: #78909C;">
-                                <md-icon>android</md-icon>
-                            </div>
-                            <div class="source-name">AOSP</div>
-                            <div class="source-desc" data-i18n="automation_src_stock">Stock keybox</div>
-                            <div class="source-check"><md-icon>check_circle</md-icon></div>
-                        </button>
-                        <button class="source-card" id="customkb" data-value="custom" data-action="true">
+                        <button class="source-card" id="customkb" data-action="true">
                             <div class="source-icon" style="--icon-color: #81C784;">
-                                <md-icon>edit</md-icon>
+                                <md-icon>folder_open</md-icon>
                             </div>
-                            <div class="source-name">Custom</div>
-                            <div class="source-desc" data-i18n="automation_src_custom">Your keybox</div>
+                            <div class="source-name">Browse File</div>
+                            <div class="source-desc" data-i18n="automation_src_file">Select .xml</div>
                             <div class="source-check"><md-icon>check_circle</md-icon></div>
                         </button>
+                    </div>
+
+                    <!-- Stubs for bundled JS hard-references to legacy aospkb and devicekb buttons -->
+                    <div style="display: none !important;" aria-hidden="true">
+                        <button id="devicekb"></button>
+                        <button id="aospkb"></button>
+                    </div>
+
+                    <!-- Custom URL Input Section -->
+                    <div id="custom-url-section" style="display: none; margin-top: 10px;">
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <md-outlined-text-field id="custom-url-field" label="Custom Keybox URL" placeholder="https://.../keybox.xml" style="flex: 1;" autocapitalize="none"></md-outlined-text-field>
+                            <md-filled-tonal-button id="save-custom-url-btn">Save</md-filled-tonal-button>
+                        </div>
                     </div>
                 </div>
 
@@ -449,11 +464,19 @@
 
                 <div class="setting-section">
                     <div class="setting-header" data-i18n="automation_manual_header">Manual Actions</div>
-                    <div class="manual-actions">
+                    <div class="manual-actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
                         <md-filled-button id="fetch-keybox-now">
-                            <md-icon slot="icon">key</md-icon>
+                            <md-icon slot="icon">cloud_sync</md-icon>
                             <span data-i18n="automation_fetch_key">Fetch Key</span>
                         </md-filled-button>
+                        <md-outlined-button id="backup-keybox-now">
+                            <md-icon slot="icon">archive</md-icon>
+                            <span>Backup</span>
+                        </md-outlined-button>
+                        <md-outlined-button id="restore-keybox-now">
+                            <md-icon slot="icon">restore</md-icon>
+                            <span>Restore</span>
+                        </md-outlined-button>
                     </div>
                 </div>
 
@@ -472,6 +495,28 @@
                             <md-icon slot="icon">security</md-icon>
                             <span data-i18n="automation_set_patch">Set Patch</span>
                         </md-filled-button>
+                    </div>
+                </div>
+
+                <div class="setting-section">
+                    <div class="setting-header">Play Integrity (PIF) Auto-Fetch</div>
+                    <div class="setting-row">
+                        <span data-i18n="automation_enable">Enable</span>
+                        <div class="custom-toggle" id="pif-auto-toggle">
+                            <div class="toggle-track">
+                                <div class="toggle-thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="manual-actions" style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                        <md-filled-button id="fetch-pif-now">
+                            <md-icon slot="icon">fingerprint</md-icon>
+                            <span>Fetch Fingerprint</span>
+                        </md-filled-button>
+                        <md-outlined-button id="kill-gms-now">
+                            <md-icon slot="icon">restart_alt</md-icon>
+                            <span>Restart GMS</span>
+                        </md-outlined-button>
                     </div>
                 </div>
 
@@ -531,6 +576,26 @@
             </div>
             <div slot="actions">
                 <md-text-button id="close-automation-settings" data-i18n="functional_button_close">Close</md-text-button>
+            </div>
+        </md-dialog>
+
+        <!-- Paste XML Dialog -->
+        <md-dialog id="paste-xml-dialog">
+            <div slot="headline">
+                <span>Paste Keybox XML</span>
+            </div>
+            <div slot="content" style="display: flex; flex-direction: column; gap: 10px; min-width: 280px; max-width: 480px;">
+                <p style="font-size: 13px; opacity: 0.8; margin: 0;">
+                    Paste valid <code>&lt;AndroidAttestation&gt;</code> XML content directly from your clipboard:
+                </p>
+                <textarea id="paste-xml-textarea" class="interval-input" style="width: 100%; height: 200px; box-sizing: border-box; font-family: monospace; font-size: 11px; resize: vertical;" placeholder="<?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#10;&lt;AndroidAttestation&gt;&#10;    &lt;NumberOfKeyboxes&gt;1&lt;/NumberOfKeyboxes&gt;&#10;    &lt;Keybox DeviceID=&quot;...&quot;&gt;&#10;...&#10;&lt;/AndroidAttestation&gt;"></textarea>
+            </div>
+            <div slot="actions">
+                <md-text-button id="close-paste-xml">Cancel</md-text-button>
+                <md-filled-button id="apply-paste-xml">
+                    <md-icon slot="icon">check</md-icon>
+                    <span>Apply Keybox</span>
+                </md-filled-button>
             </div>
         </md-dialog>
     </div>
@@ -710,10 +775,180 @@
             });
             refreshState();
             watchKeyboxBadge();
+
+            // Setup Custom URL section & Paste XML Dialog
+            const customUrlSection = document.getElementById('custom-url-section');
+            const customUrlField = document.getElementById('custom-url-field');
+            const saveCustomUrlBtn = document.getElementById('save-custom-url-btn');
+
+            const syncCustomUrlVisibility = () => {
+                const customCard = document.getElementById('custom-url-card');
+                if (customCard && customUrlSection) {
+                    customUrlSection.style.display = customCard.classList.contains('selected') ? 'flex' : 'none';
+                }
+            };
+
+            ksuExec(`grep -E "^custom_url" /data/adb/tricky_store/config.toml 2>/dev/null | cut -d'"' -f2`).then(res => {
+                if (res && res.stdout && customUrlField) customUrlField.value = res.stdout.trim();
+            }).catch(() => {});
+
+            if (saveCustomUrlBtn && customUrlField) {
+                saveCustomUrlBtn.addEventListener('click', async () => {
+                    const url = customUrlField.value.trim();
+                    if (!url) return;
+                    await ksuExec(`sed -i 's|^custom_url.*|custom_url = "${url}"|' /data/adb/tricky_store/config.toml 2>/dev/null || true`);
+                    if (typeof window.y === 'function') window.y('Custom URL Saved!');
+                });
+            }
+
+            // Source Grid click handler with alias support
+            const sourceGrid = document.getElementById('keybox-source-grid');
+            if (sourceGrid) {
+                sourceGrid.addEventListener('click', (ev) => {
+                    const card = ev.target.closest('.source-card');
+                    if (!card || card.dataset.action) return;
+                    sourceGrid.querySelectorAll('.source-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    const val = card.dataset.value;
+                    if (typeof window.Rn === 'function') window.Rn('keybox_source', val);
+                    syncCustomUrlVisibility();
+                });
+            }
+
+            // Paste XML dialog handling
+            const pasteBtn = document.getElementById('paste-xml-btn');
+            const pasteDlg = document.getElementById('paste-xml-dialog');
+            const closePaste = document.getElementById('close-paste-xml');
+            const applyPaste = document.getElementById('apply-paste-xml');
+            const pasteTextarea = document.getElementById('paste-xml-textarea');
+
+            if (pasteBtn && pasteDlg) {
+                pasteBtn.addEventListener('click', () => {
+                    pasteDlg.show();
+                });
+            }
+            if (closePaste && pasteDlg) {
+                closePaste.addEventListener('click', () => {
+                    pasteDlg.close();
+                });
+            }
+            if (applyPaste && pasteDlg && pasteTextarea) {
+                applyPaste.addEventListener('click', async () => {
+                    const xml = pasteTextarea.value.trim();
+                    if (!xml || !xml.includes('AndroidAttestation')) {
+                        if (typeof window.y === 'function') window.y('Invalid XML! Must contain <AndroidAttestation>', false);
+                        else alert('Invalid XML! Must contain <AndroidAttestation>');
+                        return;
+                    }
+                    const r = await ksuExec(`
+                        mv -f /data/adb/tricky_store/keybox.xml /data/adb/tricky_store/keybox.xml.bak 2>/dev/null
+                        cat << 'KB_EOF' > /data/adb/tricky_store/keybox.xml
+${xml}
+KB_EOF
+                        chmod 644 /data/adb/tricky_store/keybox.xml
+                    `);
+                    if (r.errno === 0) {
+                        pasteDlg.close();
+                        pasteTextarea.value = '';
+                        if (typeof window.y === 'function') window.y('Keybox XML Applied Successfully!');
+                        watchKeyboxBadge();
+                    } else {
+                        if (typeof window.y === 'function') window.y('Failed to write keybox.xml', false);
+                    }
+                });
+            }
+
+            // Backup & Restore handlers
+            const backupBtn = document.getElementById('backup-keybox-now');
+            const restoreBtn = document.getElementById('restore-keybox-now');
+
+            if (backupBtn) {
+                backupBtn.addEventListener('click', async () => {
+                    const r = await ksuExec(`cp -f /data/adb/tricky_store/keybox.xml /data/adb/tricky_store/keybox.xml.bak`);
+                    if (r.errno === 0) {
+                        if (typeof window.y === 'function') window.y('Keybox Backup Created!');
+                    } else {
+                        if (typeof window.y === 'function') window.y('Backup failed: keybox.xml not found', false);
+                    }
+                });
+            }
+
+            if (restoreBtn) {
+                restoreBtn.addEventListener('click', async () => {
+                    const r = await ksuExec(`cp -f /data/adb/tricky_store/keybox.xml.bak /data/adb/tricky_store/keybox.xml`);
+                    if (r.errno === 0) {
+                        if (typeof window.y === 'function') window.y('Keybox Restored from Backup!');
+                        watchKeyboxBadge();
+                    } else {
+                        if (typeof window.y === 'function') window.y('Restore failed: no backup found', false);
+                    }
+                });
+            }
+
+            // PIF Auto-Fetch toggle and actions
+            const pifToggle = document.getElementById('pif-auto-toggle');
+            const fetchPifBtn = document.getElementById('fetch-pif-now');
+            const killGmsBtn = document.getElementById('kill-gms-now');
+
+            const refreshPifState = async () => {
+                if (!pifToggle) return;
+                const r = await ksuExec(`ta-enhanced config get pif.auto_update 2>/dev/null || echo true`);
+                const active = !r.stdout || r.stdout.trim() !== 'false';
+                setOn(pifToggle, active);
+            };
+
+            if (pifToggle) {
+                pifToggle.addEventListener('click', async () => {
+                    const currentlyOn = isOn(pifToggle);
+                    const next = !currentlyOn;
+                    setOn(pifToggle, next);
+                    await ksuExec(`ta-enhanced config set pif.auto_update ${next}`);
+                    if (typeof window.y === 'function') {
+                        window.y(next ? 'PIF auto-fetch enabled' : 'PIF auto-fetch disabled');
+                    }
+                });
+            }
+
+            if (fetchPifBtn) {
+                fetchPifBtn.addEventListener('click', async () => {
+                    if (typeof window.y === 'function') window.y('Fetching latest PIF fingerprint...', false, 2000);
+                    const r = await ksuExec(`ta-enhanced pif fetch 2>&1`);
+                    if (r.errno === 0) {
+                        if (typeof window.y === 'function') window.y('PIF Fingerprint Applied & GMS Restarted!');
+                    } else {
+                        if (typeof window.y === 'function') window.y('Failed to fetch PIF fingerprint', true);
+                    }
+                });
+            }
+
+            if (killGmsBtn) {
+                killGmsBtn.addEventListener('click', async () => {
+                    await ksuExec(`killall -9 com.google.android.gms.unstable 2>/dev/null; killall com.google.android.gms 2>/dev/null`);
+                    if (typeof window.y === 'function') window.y('Google Play Services Restarted!');
+                });
+            }
+
+            // About GitHub link override
+            const ghBtn = document.getElementById('github');
+            if (ghBtn) {
+                ghBtn.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    const url = 'https://github.com/TheBizarreAbhishek/tricky-addon-enhanced';
+                    if (typeof window.lr === 'function') window.lr(url);
+                    else window.open(url, '_blank');
+                };
+            }
+
             const dlg = document.getElementById('automation-settings-dialog');
             if (dlg) {
-                new MutationObserver(() => { if (dlg.hasAttribute('open')) refreshState(); })
-                    .observe(dlg, { attributes: true, attributeFilter: ['open'] });
+                new MutationObserver(() => {
+                    if (dlg.hasAttribute('open')) {
+                        refreshState();
+                        syncCustomUrlVisibility();
+                        refreshPifState();
+                    }
+                }).observe(dlg, { attributes: true, attributeFilter: ['open'] });
             }
         };
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
