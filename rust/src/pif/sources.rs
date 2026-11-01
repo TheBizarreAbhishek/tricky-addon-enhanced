@@ -105,7 +105,10 @@ pub fn fetch_flashstation(product_name: &str) -> Result<PifPayload> {
         .call()
         .with_context(|| format!("failed to connect to Google Flashstation API: {url}"))?;
 
-    let parsed: FlashstationResponse = resp.into_json()
+    let resp_str = resp.into_string()
+        .context("failed to read Google Flashstation response body")?;
+
+    let parsed: FlashstationResponse = serde_json::from_str(&resp_str)
         .context("failed to parse Google Flashstation JSON response")?;
 
     let latest_build = parsed.builds.into_iter().rev().next()
@@ -179,7 +182,10 @@ pub fn fetch_generator(preferred_device: Option<&str>) -> Result<PifPayload> {
         .call()
         .context("failed to fetch latest release from PIF Generator")?;
 
-    let release: GithubRelease = resp.into_json()
+    let rel_str = resp.into_string()
+        .context("failed to read PIF Generator release body")?;
+
+    let release: GithubRelease = serde_json::from_str(&rel_str)
         .context("failed to parse PIF Generator release JSON")?;
 
     let pref = preferred_device.unwrap_or("Akita").to_ascii_lowercase();
@@ -200,7 +206,10 @@ pub fn fetch_generator(preferred_device: Option<&str>) -> Result<PifPayload> {
         .call()
         .with_context(|| format!("failed to download PIF asset from {}", asset.browser_download_url))?;
 
-    let payload: PifPayload = asset_resp.into_json()
+    let asset_str = asset_resp.into_string()
+        .context("failed to read PIF asset body")?;
+
+    let payload: PifPayload = serde_json::from_str(&asset_str)
         .context("failed to parse downloaded asset as PIF JSON payload")?;
 
     info!("successfully fetched PIF payload for {} from generator", payload.model);
@@ -219,7 +228,10 @@ pub fn fetch_custom(url: &str) -> Result<PifPayload> {
         .call()
         .with_context(|| format!("failed to fetch custom PIF from {url}"))?;
 
-    let payload: PifPayload = resp.into_json()
+    let custom_str = resp.into_string()
+        .context("failed to read custom PIF response body")?;
+
+    let payload: PifPayload = serde_json::from_str(&custom_str)
         .context("failed to parse custom response as PIF JSON payload")?;
 
     info!("successfully loaded custom PIF payload: {}", payload.model);

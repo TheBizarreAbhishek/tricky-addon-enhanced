@@ -3,12 +3,12 @@ pub mod sources;
 use std::path::Path;
 use anyhow::{Context, Result, bail};
 use serde::{Deserialize, Serialize};
-use tracing::{info, warn};
+use tracing::info;
 
 pub use sources::PifPayload;
 use crate::cli::PifAction;
 use crate::config::Config;
-use crate::platform::fs::{atomic_write, ensure_dir};
+use crate::platform::fs::atomic_write;
 
 pub const PRIMARY_PIF: &str = "/data/adb/pif.json";
 pub const MODULE_PIF_FIX: &str = "/data/adb/modules/playintegrityfix/custom.pif.json";
